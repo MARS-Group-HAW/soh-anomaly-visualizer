@@ -54,7 +54,8 @@ The project utilizes the **Jolt Physics** engine instead of the default Godot Ph
 
 Regardless of whether you run the project via the editor or as an executable, the following steps are required:
 
-1.  **Database Instance:** Ensure you have a **PostgreSQL** instance running with the simulation data. 
+1.  **Git LFS:** This project uses [Git Large File Storage (LFS)](https://git-lfs.com/) to manage large 3D assets (`.glb`, `.jpg`). Ensure you have Git LFS installed before cloning or downloading the project.
+2.  **Database Instance:** Ensure you have a **PostgreSQL** instance running with the simulation data. 
     > [!TIP]
     > The [SOHAnomalyBox](https://github.com/MARS-Group-HAW/model-soh) repository includes a `docker-compose` file that can be used to start a pre-configured database correctly.
 2.  **Configuration:** If you are **not** using the pre-configured `docker-compose` setup, update the `connString` in `PlaybackVisualizer.cs` (or via the editor inspector) with your specific database credentials.
