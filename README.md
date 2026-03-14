@@ -42,6 +42,11 @@ The project utilizes the **Jolt Physics** engine instead of the default Godot Ph
 - **Material Darkening:** Building and street materials are processed recursively to ensure they react correctly to the custom night-time environment light without unnatural "auto-glow."
 - **Light Culling:** Dynamic lights are added strategically to stalls and lamps with optimized ranges to avoid excessive shadow calculations.
 
+### 5. Asset Splitting
+The large city model was split into smaller, logical parts (Streets, Main Buildings, Background, and Outdoor/Props).
+- This prevents the Godot Editor from crashing during import due to high memory usage.
+- It allows for more efficient light-searching, as the system only needs to scan the "Outdoor Area" for lanterns instead of the entire city.
+
 ## Tech Stack
 
 - **Game Engine:** Godot 4.3 (Forward+ Renderer)

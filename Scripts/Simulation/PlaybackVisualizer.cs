@@ -396,42 +396,47 @@ public partial class PlaybackVisualizer : Node3D
 				// 5. Load OSM Map 3D tiles
 				await DownloadAndSetupMapTiles(minLon, maxLon, minLat, maxLat);
 				
-				// 6. Load the new perfect 3D city model and calibrate exactly!
-				// OSM2World said in the .obj file: "# Coordinate origin (0,0,0): lat 53.5505, lon 9.9915"
-				// We calculate this exact Godot coordinate and push the gigantic house model there.
+				// 6. Load the city parts (split for performance) and calibrate exactly!
 				try 
 				{
-					var rathausScene = GD.Load<PackedScene>("res://Assets/rathausmarkt.glb");
-					if (rathausScene != null)
+					string[] cityParts = {
+						"res://Assets/rathaus_streets.glb",
+						"res://Assets/rathaus_building.glb",
+						"res://Assets/rathaus_background_buildings.glb",
+						"res://Assets/rathaus_outdoor_area.glb"
+					};
+
+					Vector3 osmOrigin = LonLatToLocalPos3D(9.9915, 53.5505, MapZoom);
+
+					foreach (var partPath in cityParts)
 					{
-						var rathausModel = rathausScene.Instantiate() as Node3D;
-						// Scale to exactly 1.0 (because OSM and our agents correspond natively to 1 meter!)
-						rathausModel.Scale = new Vector3(1, 1, 1);
-						// Push exactly on our grid based on Godot calculation:
-						Vector3 osmOrigin = LonLatToLocalPos3D(9.9915, 53.5505, MapZoom);
-						rathausModel.Position = new Vector3(osmOrigin.X, 0, osmOrigin.Z); // Anchor to the ground
+						if (!FileAccess.FileExists(partPath)) continue;
+
+						var scene = GD.Load<PackedScene>(partPath);
+						if (scene == null) continue;
+
+						var model = scene.Instantiate() as Node3D;
+						model.Scale = new Vector3(1, 1, 1);
+						model.Position = new Vector3(osmOrigin.X, 0, osmOrigin.Z);
 						
-						// We leave the 3D model ALWAYS on from now.
-						rathausModel.Visible = true;
+						// Basic cleaning for all parts
+						RemoveAllLightsRec(model);
+						DarkenMaterialsRec(model);
 						
-						// Often tools like OSM2World secretly export their own "sun" into the model!
-						// We delete all foreign lights from the imported model, so only our own apply.
-						RemoveAllLightsRec(rathausModel);
+						// Only search for lamps in the outdoor area to save performance
+						if (partPath.Contains("outdoor_area"))
+						{
+							AddLightsToStreetLampsRec(model);
+						}
 						
-						// OSM2World often applies a "glow" (emission) or wrong shading modes to buildings/streets,
-						// so they glow unnaturally bright at night. We force dark shading!
-						DarkenMaterialsRec(rathausModel);
-						
-						// Search and illuminate all lanterns ("StreetLamp") in the model!
-						AddLightsToStreetLampsRec(rathausModel);
-						
-						AddChild(rathausModel);
-						GD.Print($"✅ Rathausmarkt environment loaded and aligned to origin {osmOrigin}!");
+						AddChild(model);
+						GD.Print($"✅ City part loaded: {partPath}");
 					}
+					GD.Print($"✅ All rathausmarkt environment parts aligned to origin {osmOrigin}!");
 				}
 				catch (Exception e)
 				{
-					GD.PrintErr("Error automatically loading rathausmarkt.glb: " + e.Message);
+					GD.PrintErr("Error loading split city models: " + e.Message);
 				}
 			}
 
