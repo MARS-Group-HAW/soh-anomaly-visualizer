@@ -1,0 +1,232 @@
+[gd_scene format=3 uid="uid://cx6i1u4qfqewb"]
+
+[ext_resource type="Script" uid="uid://txp1hptku8fk" path="res://Scripts/Simulation/PlaybackVisualizer.cs" id="1_abc12"]
+[ext_resource type="PackedScene" uid="uid://cmd4jaanklhrl" path="res://Assets/man.glb" id="2_r0du0"]
+[ext_resource type="PackedScene" uid="uid://c5krk1qlb8e45" path="res://Assets/woman.glb" id="3_cm0pq"]
+[ext_resource type="PackedScene" uid="uid://dyopnh40mmfxt" path="res://Assets/atmmachine.glb" id="5_atm"]
+[ext_resource type="PackedScene" uid="uid://du0osqhuxpsnc" path="res://Assets/firebarrel.glb" id="6_fire"]
+[ext_resource type="PackedScene" uid="uid://dipd3xwm5mvki" path="res://Assets/foodstall.glb" id="7_food"]
+[ext_resource type="PackedScene" uid="uid://gebf8n8j5m8w" path="res://Assets/marketstall.glb" id="8_market"]
+[ext_resource type="PackedScene" uid="uid://bjtvrt53xr87r" path="res://Assets/toiletunit.glb" id="9_toilet"]
+[ext_resource type="PackedScene" uid="uid://wolv0lw7sujo" path="res://Assets/winestall.glb" id="10_wine"]
+
+[node name="Main" type="Node3D" unique_id=38843260]
+script = ExtResource("1_abc12")
+MaleModel = ExtResource("2_r0du0")
+FemaleModel = ExtResource("3_cm0pq")
+AtmModel = ExtResource("5_atm")
+FirebarrelModel = ExtResource("6_fire")
+FoodstallModel = ExtResource("7_food")
+MarketstallModel = ExtResource("8_market")
+ToiletModel = ExtResource("9_toilet")
+WinestallModel = ExtResource("10_wine")
+AtmOffsetY = 0.20000000000000015
+FirebarrelOffsetY = 0.0
+FoodstallOffsetY = 1.0
+MarketstallOffsetY = 1.0
+ToiletOffsetY = 0.20000000000000015
+WinestallOffsetY = 1.0
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=987243686]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 80, 50)
+current = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1165252544]
+transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 0, 20, 0)
+shadow_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=173976259]
+
+[node name="HUD" type="Control" parent="CanvasLayer" unique_id=1461456162]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD" unique_id=1608535748]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/HUD/MarginContainer" unique_id=1122794568]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/HUD/MarginContainer/PanelContainer" unique_id=294036004]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/MarginContainer2" unique_id=2023793519]
+layout_mode = 2
+
+[node name="InfoLabel" type="Label" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/MarginContainer2/VBoxContainer" unique_id=451724441]
+layout_mode = 2
+text = "Tick: 0 / 0 | Speed: 1.0x"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/MarginContainer2/VBoxContainer" unique_id=17113545]
+layout_mode = 2
+alignment = 1
+
+[node name="PlayPauseBtn" type="Button" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/MarginContainer2/VBoxContainer/HBoxContainer" unique_id=1822065368]
+custom_minimum_size = Vector2(80, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Pause"
+
+[node name="BackBtn" type="Button" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/MarginContainer2/VBoxContainer/HBoxContainer" unique_id=1824856707]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "<< -10"
+
+[node name="TimeSlider" type="HSlider" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/MarginContainer2/VBoxContainer/HBoxContainer" unique_id=983520830]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="FwdBtn" type="Button" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/MarginContainer2/VBoxContainer/HBoxContainer" unique_id=733874088]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "+10 >>"
+
+[node name="SpeedLabel" type="Label" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/MarginContainer2/VBoxContainer/HBoxContainer" unique_id=1913694817]
+layout_mode = 2
+text = "  Speed: "
+
+[node name="SpeedSlider" type="HSlider" parent="CanvasLayer/HUD/MarginContainer/PanelContainer/MarginContainer2/VBoxContainer/HBoxContainer" unique_id=1912166914]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 4
+min_value = 0.1
+max_value = 5.0
+step = 0.1
+value = 1.0
+
+[node name="LegendMargin" type="MarginContainer" parent="CanvasLayer/HUD" unique_id=1117235678]
+layout_mode = 1
+offset_right = 200.0
+offset_bottom = 100.0
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD/LegendMargin" unique_id=144138417]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="LegendToggleBtn" type="Button" parent="CanvasLayer/HUD/LegendMargin/VBoxContainer" unique_id=1017750461]
+layout_mode = 2
+text = "Show legend ▾"
+alignment = 0
+
+[node name="MapToggleBtn" type="Button" parent="CanvasLayer/HUD/LegendMargin/VBoxContainer" unique_id=20241031]
+layout_mode = 2
+text = "🗺️ Enable 2D Ground Map"
+alignment = 0
+
+[node name="LegendPanel" type="PanelContainer" parent="CanvasLayer/HUD/LegendMargin/VBoxContainer" unique_id=244469805]
+visible = false
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="CanvasLayer/HUD/LegendMargin/VBoxContainer/LegendPanel" unique_id=776682620]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Grid" type="GridContainer" parent="CanvasLayer/HUD/LegendMargin/VBoxContainer/LegendPanel/Margin" unique_id=1273729287]
+layout_mode = 2
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 5
+columns = 2
+
+[node name="ColorReact1" type="ColorRect" parent="CanvasLayer/HUD/LegendMargin/VBoxContainer/LegendPanel/Margin/Grid" unique_id=851667050]
+custom_minimum_size = Vector2(15, 15)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(1, 0, 0, 1)
+
+[node name="Label1" type="Label" parent="CanvasLayer/HUD/LegendMargin/VBoxContainer/LegendPanel/Margin/Grid" unique_id=1577691429]
+layout_mode = 2
+text = "Agents"
+
+[node name="ColorReact2" type="ColorRect" parent="CanvasLayer/HUD/LegendMargin/VBoxContainer/LegendPanel/Margin/Grid" unique_id=1082064953]
+custom_minimum_size = Vector2(15, 15)
+layout_mode = 2
+size_flags_vertical = 4
+color = Color(0.2, 0.4, 1, 1)
+
+[node name="Label2" type="Label" parent="CanvasLayer/HUD/LegendMargin/VBoxContainer/LegendPanel/Margin/Grid" unique_id=1818240622]
+layout_mode = 2
+text = "Market stalls"
+
+[node name="Label3" type="Label" parent="CanvasLayer/HUD/LegendMargin/VBoxContainer/LegendPanel/Margin/Grid" unique_id=1466524848]
+layout_mode = 2
+text = "FT"
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="CanvasLayer/HUD/LegendMargin/VBoxContainer/LegendPanel/Margin/Grid" unique_id=841351519]
+layout_mode = 2
+text = "Fire barrel"
+
+[node name="Label5" type="Label" parent="CanvasLayer/HUD/LegendMargin/VBoxContainer/LegendPanel/Margin/Grid" unique_id=1839019724]
+layout_mode = 2
+text = "VS"
+horizontal_alignment = 1
+
+[node name="Label6" type="Label" parent="CanvasLayer/HUD/LegendMargin/VBoxContainer/LegendPanel/Margin/Grid" unique_id=2113474231]
+layout_mode = 2
+text = "Sales stand"
+
+[node name="Label7" type="Label" parent="CanvasLayer/HUD/LegendMargin/VBoxContainer/LegendPanel/Margin/Grid" unique_id=1432354454]
+layout_mode = 2
+text = "GW"
+horizontal_alignment = 1
+
+[node name="Label8" type="Label" parent="CanvasLayer/HUD/LegendMargin/VBoxContainer/LegendPanel/Margin/Grid" unique_id=653874000]
+layout_mode = 2
+text = "Mulled wine stand"
+
+[node name="Label9" type="Label" parent="CanvasLayer/HUD/LegendMargin/VBoxContainer/LegendPanel/Margin/Grid" unique_id=225606205]
+layout_mode = 2
+text = "G"
+horizontal_alignment = 1
+
+[node name="Label10" type="Label" parent="CanvasLayer/HUD/LegendMargin/VBoxContainer/LegendPanel/Margin/Grid" unique_id=205233297]
+layout_mode = 2
+text = "Gastronomy"
+
+[node name="Label11" type="Label" parent="CanvasLayer/HUD/LegendMargin/VBoxContainer/LegendPanel/Margin/Grid" unique_id=116410540]
+layout_mode = 2
+text = "WC"
+horizontal_alignment = 1
+
+[node name="Label12" type="Label" parent="CanvasLayer/HUD/LegendMargin/VBoxContainer/LegendPanel/Margin/Grid" unique_id=1803466927]
+layout_mode = 2
+text = "Toilet"
+
+[node name="Label13" type="Label" parent="CanvasLayer/HUD/LegendMargin/VBoxContainer/LegendPanel/Margin/Grid" unique_id=1225870988]
+layout_mode = 2
+text = "ATM"
+horizontal_alignment = 1
+
+[node name="Label14" type="Label" parent="CanvasLayer/HUD/LegendMargin/VBoxContainer/LegendPanel/Margin/Grid" unique_id=691582548]
+layout_mode = 2
+text = "ATM"

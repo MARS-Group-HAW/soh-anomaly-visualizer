@@ -1,0 +1,40 @@
+# Godot-specific ignores
+.godot/
+# Keep *.import files!
+export_presets.cfg
+
+# Large Binary Data & Assets
+# We track these via Git LFS (see .gitattributes)
+# Still ignore generic OSM data folder if it's purely temporary
+OSM/*
+!OSM/README.md
+
+# Mono/C# specific
+bin/
+obj/
+*.csproj.user
+*.sln.dotSettings.user
+
+# JetBrains Rider / IntelliJ
+.idea/
+*.sln.iml
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+
+# Build artifacts
+*.dll
+*.exe
+*.pdb
+*.app
+*.ipa
+*.apk
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Log files
+*.log
