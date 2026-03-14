@@ -66,7 +66,8 @@ Regardless of whether you run the project via the editor or as an executable, th
 1.  Download **Godot 4.3 Stable** from the [official archive](https://godotengine.org/download/archive/4.3-stable/).
 2.  Extract and open the Godot Editor.
 3.  Import this project by selecting the `project.godot` file.
-4.  Press **F5** or the **Play** button in the top right to start the simulation.
+4.  **Initial Load:** Open the project in the editor and wait for it to finish importing all assets. This step is required for the 3D models and textures to be correctly processed.
+5.  Press **F5** or the **Play** button in the top right to start the simulation.
 
 ### Option 2: Export as Executable
 If you want to create a standalone executable for a specific operating system, please follow the official [Godot Export Guide](https://docs.godotengine.org/en/stable/tutorials/export/index.html).
