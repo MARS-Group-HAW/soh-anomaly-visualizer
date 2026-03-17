@@ -10,9 +10,9 @@ This visualizer is specifically configured to work with the **SOHAnomalyBox** si
 
 - **Real-time 3D Playback:** Visualization of agent movements based on simulation ticks stored in PostgreSQL.
 - **Geospatial Accuracy:** Every 3D unit corresponds to 1 meter in the real world (Hamburg Rathausmarkt), calibrated via MapZoom and GPS coordinates.
-- **Night-time Simulation:** Advanced environment lighting with "Moonlight," glow effects, and dynamic point lights for market stalls and street lamps.
+- **Night-time Simulation:** Environment lighting with "Moonlight," glow effects, and dynamic point lights for market stalls and street lamps.
 - **Interactive Information:** Click on agents or stalls to see real-time status attributes (Hunger, Thirst, Budget, etc.).
-- **Dynamic 3D Cityscape:** Seamless integration of OpenStreetMap (OSM) data converted to 3D via [OSM2World](https://www.osm2world.org/).
+- **Dynamic 3D Cityscape:** Integration of OpenStreetMap (OSM) data converted to 3D via [OSM2World](https://www.osm2world.org/).
 
 ## Assets and Modeling
 
@@ -66,6 +66,7 @@ Regardless of whether you run the project via the editor or as an executable, th
 2.  **Configuration:** If you are **not** using the pre-configured `docker-compose` setup, update the `connString` in `PlaybackVisualizer.cs` (or via the editor inspector) with your specific database credentials.
 
 ## How to Run
+Before running the visualizer, make sure the SOHAnomalyBox simulation environment is up and running. First, go to the SOHAnomalyBox in the [model-soh repository](https://github.com/MARS-Group-HAW/model-soh) and start the provided docker-compose setup to bring up the PostgreSQL database. Then run the SOHAnomalyBox simulation so it produces data in the database. Once the database is running and contains simulation output, you can choose one of the options below to start the visualizer.
 
 ### Option 1: Run via Godot Editor (Recommended)
 1.  Download **Godot 4.3 Stable** from the [official archive](https://godotengine.org/download/archive/4.3-stable/).
