@@ -2,6 +2,8 @@
 
 The **SOH Anomaly Visualizer** is a high-performance 3D visualization tool built with **Godot 4.3** and **C#**. It is designed to visualize large-scale agent-based simulations (specifically from the SMART Open Hamburg / SOH framework) in real-time.
 
+![Screenshot](docs/images/screenshot.bmp)
+
 The application connects to a PostgreSQL database to fetch simulation "ticks," rendering thousands of agents simultaneously while providing interactive tooltips, night-time lighting effects, and accurate geospatial alignment.
 
 This visualizer is specifically configured to work with the **SOHAnomalyBox** simulation from the [model-soh repository](https://github.com/MARS-Group-HAW/model-soh). Once the simulation is executed, this tool can be used to visualize the generated data.
